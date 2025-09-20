@@ -1,8 +1,4 @@
-{{ config(
-    materialized='table',
-    partition_by={'field': 'transaction_date', 'data_type': 'date'},
-    cluster_by=['customer_id','product_id']
-) }}
+{{ config(materialized='table') }}
 
 with stg_sales_transaction as (
   select 
