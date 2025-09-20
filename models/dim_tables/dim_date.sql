@@ -1,5 +1,5 @@
 SELECT
-  d AS id,
+  cast(d as date) AS id,
   FORMAT_DATE('%F', d) AS year_month_day,
   FORMAT_DATE('%d/%m/%Y', d) AS date_format_uk,
   FORMAT_DATE('%Y-%m', d) AS year_month,
