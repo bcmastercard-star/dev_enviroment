@@ -6,7 +6,7 @@ SELECT * FROM `bcmastercard.spreadsheet_import.sales_transaction`
 )
 select 
 field22 as transaction_id,
-cast(field23 as date) as transaction_date,
+safe.parse_date('%d/%m/%Y', field23) as transaction_date,
 field24 as customer_id,
 field25 as product_id,
 cast(q as numeric) as quantity,

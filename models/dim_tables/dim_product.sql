@@ -8,6 +8,6 @@ select
 field0 as product_id,
 field1 as product_name,
 field2 as product_category,
-cast(cost as numeric) as cost
+cast(cost as numeric) as product_cost
 from 
 product_cost

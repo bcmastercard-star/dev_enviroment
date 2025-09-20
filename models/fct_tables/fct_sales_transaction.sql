@@ -5,22 +5,35 @@
 ) }}
 
 with stg_sales_transaction as (
-  select * from {{ ref('stg_sales_transaction') }}
+  select 
+    * 
+  from {{ ref('stg_sales_transaction') }}
 ),
 dim_customer as (
-  select customer_id, customer_name, customer_region, customer_status
+  select 
+    customer_id, 
+    customer_name, 
+    customer_region, 
+    customer_status
   from {{ ref('dim_customer') }}
 ),
 dim_product as (
-  select product_id, product_name, product_category, product_cost
+  select 
+    product_id, 
+    product_name, 
+    product_category,
+    product_cost
   from {{ ref('dim_product') }}
 ),
 dim_currency_conversion as (
-  select region, currency
+  select 
+    region, 
+    currency_conversion
   from {{ ref('dim_currency_conversion') }}
 ),
 dim_date as (
-  select *
+  select 
+    *
   from {{ ref('dim_date') }}
 )
 
@@ -41,7 +54,6 @@ select
   dim_date.quarter,
   dim_date.month,
   dim_date.week_number as week,
-  dim_date.date_id as date,
   stg_sales_transaction.price * dim_currency_conversion.currency_conversion as price_harmonized,
   stg_sales_transaction.sales * dim_currency_conversion.currency_conversion as sales_harmonized,
   stg_sales_transaction.quantity * dim_product.product_cost as cost_harmonized
@@ -54,4 +66,4 @@ left join dim_product
 left join dim_currency_conversion
   on dim_customer.customer_region = dim_currency_conversion.region
 left join dim_date
-  on stg_sales_transaction.transaction_date = dim_date.date_id
+  on stg_sales_transaction.transaction_date = dim_date.id
